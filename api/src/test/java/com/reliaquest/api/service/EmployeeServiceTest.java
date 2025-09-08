@@ -30,7 +30,6 @@ class EmployeeServiceTest {
 
     @Mock
     private RestTemplate restTemplate;
-
     private EmployeeService employeeService;
 
     @BeforeEach
@@ -42,7 +41,7 @@ class EmployeeServiceTest {
     void getAllEmployees_ShouldReturnAllEmployees_WhenApiCallSuccessful() {
         var employee1 = new Employee("1", "John Doe", 50000, 30, "Developer", "john@company.com");
         var employee2 = new Employee("2", "Jane Smith", 75000, 28, "Senior Developer", "jane@company.com");
-        List<Employee> expectedEmployees = Arrays.asList(employee1, employee2);
+        var expectedEmployees = Arrays.asList(employee1, employee2);
 
         var mockResponse = new ApiResponse<>(expectedEmployees, "Successfully processed request.");
         var responseEntity = new ResponseEntity<>(mockResponse, HttpStatus.OK);
@@ -54,7 +53,7 @@ class EmployeeServiceTest {
                         ArgumentMatchers.<ParameterizedTypeReference<ApiResponse<List<Employee>>>>any()))
                 .thenReturn(responseEntity);
 
-        List<Employee> actualEmployees = employeeService.getAllEmployees();
+        var actualEmployees = employeeService.getAllEmployees();
 
         assertThat(actualEmployees).isNotNull();
         assertThat(actualEmployees).hasSize(2);
@@ -185,7 +184,7 @@ class EmployeeServiceTest {
 
     @Test
     void getEmployeesByNameSearch_ShouldReturnEmptyList_WhenSearchStringIsWhitespace() {
-        List<Employee> result = employeeService.getEmployeesByNameSearch("");
+        var result = employeeService.getEmployeesByNameSearch("");
         assertThat(result).isEmpty();
     }
 
@@ -240,7 +239,8 @@ class EmployeeServiceTest {
                 new Employee("9", "Employee9", 60000, 30, "Developer", "emp9@company.com"),
                 new Employee("10", "Employee10", 55000, 30, "Developer", "emp10@company.com"),
                 new Employee("11", "Employee11", 50000, 30, "Developer", "emp11@company.com"),
-                new Employee("12", "Employee12", 45000, 30, "Developer", "emp12@company.com"));
+                new Employee("12", "Employee12", 45000, 30, "Developer", "emp12@company.com")
+        );
 
         var mockResponse = new ApiResponse<>(employees, "Successfully processed request.");
         var responseEntity = new ResponseEntity<>(mockResponse, HttpStatus.OK);
