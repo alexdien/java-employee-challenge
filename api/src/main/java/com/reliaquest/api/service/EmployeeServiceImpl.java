@@ -31,7 +31,11 @@ public class EmployeeServiceImpl implements EmployeeService {
 
         try {
             var response = restTemplate.exchange(
-                    BASE_URL, HttpMethod.GET, null, new ParameterizedTypeReference<ApiResponse<List<Employee>>>() {});
+                    BASE_URL,
+                    HttpMethod.GET,
+                    null,
+                    new ParameterizedTypeReference<ApiResponse<List<Employee>>>() {}
+            );
 
             if (response.getBody() != null && response.getBody().getData() != null) {
                 List<Employee> employees = response.getBody().getData();
@@ -79,7 +83,8 @@ public class EmployeeServiceImpl implements EmployeeService {
                     BASE_URL + "/" + id,
                     HttpMethod.GET,
                     null,
-                    new ParameterizedTypeReference<ApiResponse<Employee>>() {});
+                    new ParameterizedTypeReference<ApiResponse<Employee>>() {}
+            );
 
             if (response.getBody() != null && response.getBody().getData() != null) {
                 var employee = response.getBody().getData();
@@ -146,7 +151,8 @@ public class EmployeeServiceImpl implements EmployeeService {
                     BASE_URL,
                     HttpMethod.POST,
                     requestEntity,
-                    new ParameterizedTypeReference<ApiResponse<Employee>>() {});
+                    new ParameterizedTypeReference<ApiResponse<Employee>>() {}
+            );
 
             if (response.getBody() != null && response.getBody().getData() != null) {
                 var createdEmployee = response.getBody().getData();
